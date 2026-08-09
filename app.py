@@ -4,7 +4,6 @@ import re
 import string
 import joblib
 
-# Cache the models so they load efficiently and save memory
 @st.cache_resource
 def load_assets():
     vectorization = joblib.load('vectorizer.pkl')
@@ -29,6 +28,7 @@ def wordopt(text):
     return text
 
 def output_lable(n):
+    # Agar ulta result aaye, toh yahan 0 aur 1 ki jagah badal sakte hain
     if n == 0:
         return "Fake News 🚨"
     elif n == 1:
@@ -48,13 +48,19 @@ if st.button("Run Analysis"):
         clean_text = wordopt(news_input)
         vectorized_text = vectorization.transform([clean_text])
         
+        # Predictions
         pred_LR = LR.predict(vectorized_text)[0]
+        prob_LR = LR.predict_proba(vectorized_text)[0]
+        confidence_LR = max(prob_LR) * 100
+        
         pred_DT = DT.predict(vectorized_text)[0]
+        prob_DT = DT.predict_proba(vectorized_text)[0]
+        confidence_DT = max(prob_DT) * 100
         
         st.subheader("Analysis Results:")
         
         col1, col2 = st.columns(2)
         with col1:
-            st.info(f"**Logistic Regression**\n\n{output_lable(pred_LR)}")
+            st.info(f"**Logistic Regression**\n\n{output_lable(pred_LR)}\n\n*Confidence: {confidence_LR:.2f}%*")
         with col2:
-            st.info(f"**Decision Tree**\n\n{output_lable(pred_DT)}")
+            st.info(f"**Decision Tree**\n\n{output_lable(pred_DT)}\n\n*Confidence: {confidence_DT:.2f}%*")
