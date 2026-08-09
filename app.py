@@ -4,9 +4,18 @@ import re
 import string
 import joblib
 
-vectorization = joblib.load('vectorizer.pkl')
-LR = joblib.load('lr_model.pkl')
-DT = joblib.load('dt_model.pkl')
+# Cache the models so they load only once and save memory
+@st.cache_resource
+def load_assets():
+    vectorization = joblib.load('vectorizer.pkl')
+    LR = joblib.load('lr_model.pkl')
+    DT = joblib.load('dt_model.pkl')
+    return vectorization, LR, DT
+
+try:
+    vectorization, LR, DT = load_assets()
+except Exception as e:
+    st.error(f"Error loading models: {e}")
 
 def wordopt(text):
     text = text.lower()
@@ -43,6 +52,12 @@ if st.button("Run Analysis"):
         pred_DT = DT.predict(vectorized_text)[0]
         
         st.subheader("Analysis Results:")
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            st.info(f"**Logistic Regression**\n\n{output_lable(pred_LR)}")
+        with col2:
+            st.info(f"**Decision Tree**\n\n{output_lable(pred_DT)}")
         
         col1, col2 = st.columns(2)
         with col1:
