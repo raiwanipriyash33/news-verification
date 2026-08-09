@@ -3,7 +3,7 @@
 This web application utilizes machine learning to analyze the linguistic structure and source markers of news articles to predict their authenticity. It is built using Python, Scikit-Learn, and Streamlit.
 
 ## 🚀 Live Demo
-You can access the live web application here: [News Verification Terminal](https://news-verification-mpmff2eba74mjuy63gnnup.streamlit.app/)
+You can access the live web application here: [News Verification Terminal](https://news-verification-jkp8kmpty2cpunhumyarbv.streamlit.app/)
 
 ## 🧠 Model Architecture
 
