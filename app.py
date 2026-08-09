@@ -32,7 +32,7 @@ def output_lable(n):
     # ISOT Mapping: 0 = True/Real News, 1 = Fake News
     if n == 0:
         return "Not A Fake News ✅"
-    else:
+    if n == 1 :
         return "Fake News 🚨"
 
 st.set_page_config(page_title="News Verification Terminal", layout="wide")
