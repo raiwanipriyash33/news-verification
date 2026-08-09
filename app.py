@@ -28,8 +28,6 @@ def wordopt(text):
     return text
 
 def output_lable(n):
-    # Agar ulta result aaye, toh yahan 0 aur 1 ki jagah badal sakte hain
-    def output_lable(n):
     if n == 0:
         return "Not A Fake News ✅"
     elif n == 1:
@@ -49,7 +47,6 @@ if st.button("Run Analysis"):
         clean_text = wordopt(news_input)
         vectorized_text = vectorization.transform([clean_text])
         
-        # Predictions
         pred_LR = LR.predict(vectorized_text)[0]
         prob_LR = LR.predict_proba(vectorized_text)[0]
         confidence_LR = max(prob_LR) * 100
