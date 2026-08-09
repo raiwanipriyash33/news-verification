@@ -29,10 +29,11 @@ def wordopt(text):
 
 def output_lable(n):
     # Agar ulta result aaye, toh yahan 0 aur 1 ki jagah badal sakte hain
+    def output_lable(n):
     if n == 0:
-        return "Fake News 🚨"
-    elif n == 1:
         return "Not A Fake News ✅"
+    elif n == 1:
+        return "Fake News 🚨"
 
 st.set_page_config(page_title="News Verification Terminal", layout="wide")
 
