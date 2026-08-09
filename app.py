@@ -17,9 +17,9 @@ except Exception as e:
     st.error(f"Error loading models: {e}")
 
 def wordopt(text):
-    text = text.lower()
+    text = str(text).lower()
     text = re.sub('\[.*?\]', '', text)
-    text = re.sub("\\W", " ", text)
+    text = re.sub(r'\W', ' ', text)
     text = re.sub('https?://\S+|www\.\S+', '', text)
     text = re.sub('<.*?>+', '', text)
     text = re.sub('[%s]' % re.escape(string.punctuation), '', text)
@@ -28,9 +28,10 @@ def wordopt(text):
     return text
 
 def output_lable(n):
+    # ISOT Dataset mapping check: 0 = True/Real News, 1 = Fake News
     if n == 0:
         return "Not A Fake News ✅"
-    elif n == 1:
+    else:
         return "Fake News 🚨"
 
 st.set_page_config(page_title="News Verification Terminal", layout="wide")
@@ -47,10 +48,12 @@ if st.button("Run Analysis"):
         clean_text = wordopt(news_input)
         vectorized_text = vectorization.transform([clean_text])
         
+        # Logistic Regression Prediction
         pred_LR = LR.predict(vectorized_text)[0]
         prob_LR = LR.predict_proba(vectorized_text)[0]
         confidence_LR = max(prob_LR) * 100
         
+        # Decision Tree Prediction
         pred_DT = DT.predict(vectorized_text)[0]
         prob_DT = DT.predict_proba(vectorized_text)[0]
         confidence_DT = max(prob_DT) * 100
