@@ -4,15 +4,14 @@ import re
 import string
 import joblib
 
-# --- 1. Load the Exported Assets ---
+# --- 1. Load the Exported Assets (Only lighter models to save RAM) ---
 vectorization = joblib.load('vectorizer.pkl')
 LR = joblib.load('lr_model.pkl')
 DT = joblib.load('dt_model.pkl')
-GB = joblib.load('gb_model.pkl')
-RF = joblib.load('rf_model.pkl')
+# GB = joblib.load('gb_model.pkl')  # Temporarily disabled
+# RF = joblib.load('rf_model.pkl')  # Temporarily disabled
 
 # --- 2. Define the Preprocessing Function ---
-# (Sourced directly from your Colab notebook)
 def wordopt(text):
     text = text.lower()
     text = re.sub('\[.*?\]', '', text)
@@ -50,19 +49,13 @@ if st.button("Run Analysis"):
         # Generate Predictions
         pred_LR = LR.predict(vectorized_text)[0]
         pred_DT = DT.predict(vectorized_text)[0]
-        pred_GB = GB.predict(vectorized_text)[0]
-        pred_RF = RF.predict(vectorized_text)[0]
         
         st.subheader("Analysis Results:")
         
         # Display results in a clean grid layout
-        col1, col2, col3, col4 = st.columns(4)
+        col1, col2 = st.columns(2)
         
         with col1:
             st.info(f"**Logistic Regression**\n\n{output_lable(pred_LR)}")
         with col2:
             st.info(f"**Decision Tree**\n\n{output_lable(pred_DT)}")
-        with col3:
-            st.info(f"**Gradient Boosting**\n\n{output_lable(pred_GB)}")
-        with col4:
-            st.info(f"**Random Forest**\n\n{output_lable(pred_RF)}")
