@@ -57,10 +57,4 @@ if st.button("Run Analysis"):
         with col1:
             st.info(f"**Logistic Regression**\n\n{output_lable(pred_LR)}")
         with col2:
-            st.info(f"**Decision Tree**\n\n{output_lable(pred_DT)}")
-        
-        col1, col2 = st.columns(2)
-        with col1:
-            st.info(f"**Logistic Regression**\n\n{output_lable(pred_LR)}")
-        with col2:
-            st.info(f"**Decision Tree**\n\n{output_lable(pred_DT)}")
+            st.info(f"**Decision Tree**\n\n{output_lable(pred_DT)}")lable(pred_DT)}")
