@@ -4,7 +4,7 @@ import re
 import string
 import joblib
 
-# Cache the models so they load only once and save memory
+# Cache the models so they load efficiently and save memory
 @st.cache_resource
 def load_assets():
     vectorization = joblib.load('vectorizer.pkl')
@@ -57,4 +57,4 @@ if st.button("Run Analysis"):
         with col1:
             st.info(f"**Logistic Regression**\n\n{output_lable(pred_LR)}")
         with col2:
-            st.info(f"**Decision Tree**\n\n{output_lable(pred_DT)}")lable(pred_DT)}")
+            st.info(f"**Decision Tree**\n\n{output_lable(pred_DT)}")
